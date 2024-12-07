@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Now</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<section class="book" id="book">
+    <h1 class="heading"><span>BOOKNOW</span></h1>
+    <br />
+    <div class="row">
+        <div class="image">
+            <img src="/images/book-img.png" alt="">
+        </div>
+        <form action="/booking/submit" method="POST">
+            <div class="inputBox">
+                <h3><i class="fas fa-map-marker-alt"></i> Location </h3>
+                <input type="text" name="location" placeholder="Destination Name" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-user-friends"></i> No of Persons </h3>
+                <input type="number" name="numberOfPersons" placeholder="Number of Guests" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-phone-alt"></i> Phone No </h3>
+                <input type="text" name="phoneNumber" placeholder="Contact Number" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-plane-arrival"></i> Arrival Date </h3>
+                <input type="date" name="arrivalDate" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-plane-departure"></i> Departure Date </h3>
+                <input type="date" name="departureDate" required>
+            </div>
+            <input type="submit" class="btn" value="Book Now">
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

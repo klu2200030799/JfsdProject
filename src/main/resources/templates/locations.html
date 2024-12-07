@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location Booking</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black; /* Added black background color */
+      color: white; /* Text color white for contrast */
+    }
+
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px; /* Decreased distance between links */
+      font-size: 18px; /* Increased font size */
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 15px; /* Decreased the gap between location blocks */
+    }
+
+    .location-block {
+      width: 300px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .location-block:hover {
+      transform: scale(1.05);
+    }
+
+    .location-block img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .location-block h3 {
+      margin: 15px 0;
+    }
+
+    .location-block .btn {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .location-block .btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="navbar"></div>
+
+<!-- Locations -->
+<section>
+  <h1 style="text-align: center; margin: 20px 0;">Select Your Destination</h1>
+  <div class="container">
+    <!-- Location 1 -->
+    <div class="location-block">
+      <img src="images/loc1.jpg" alt="Location 1">
+      <h3>Varanasi</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 2 -->
+    <div class="location-block">
+      <img src="images/udaipur.jpg" alt="Location 2">
+      <h3>Udaipur</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 3 -->
+    <div class="location-block">
+      <img src="images/ladakh.jpg" alt="Location 3">
+      <h3>Ladakh</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 4 -->
+    <div class="location-block">
+      <img src="images/tirupati.jpg" alt="Location 4">
+      <h3>Tirupati</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 5: Manali -->
+    <div class="location-block">
+      <img src="images/Manali.jpg" alt="Manali">
+      <h3>Manali</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 6: Jaipur -->
+    <div class="location-block">
+      <img src="images/jaipur.jpg" alt="Jaipur">
+      <h3>Jaipur</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 7: Amritsar -->
+    <div class="location-block">
+      <img src="images/amritsar.jpg" alt="Amritsar">
+      <h3>Amritsar</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+    <!-- Location 8: Agra -->
+    <div class="location-block">
+      <img src="images/delhi.jpg" alt="Agra">
+      <h3>Agra</h3>
+      <a href="book.html" class="btn">Book Now</a>
+    </div>
+  </div>
+</section>
+</body>
+</html>

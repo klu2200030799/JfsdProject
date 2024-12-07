@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festivals</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+        }
+
+        header {
+            background: linear-gradient(to right, #6a89cc, #ff7e5f);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .heading {
+            font-size: 3.5rem;
+            color: #fff;
+            text-align: center;
+            margin: 30px 0;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .heading span {
+            color: #feb47b;
+        }
+
+        .packages {
+            padding: 60px 0;
+            background-color: #000;
+            text-align: center;
+        }
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .content {
+            padding: 20px;
+            color: white;
+        }
+
+        .content h3 {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            max-height: 60px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .read-more {
+            color: #feb47b;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #feb47b;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #f5a623;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 50px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-option {
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quiz-option:hover {
+            background-color: #feb47b;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+<div th:include="navbar"></div>
+<section class="packages" id="packages">
+    <h1 class="heading"><span>Festivals</span></h1>
+    <div class="box-container">
+        <div class="box" th:each="item : ${galleryItems}">
+            <img th:src="@{${item.image}}" alt="${item.title}">
+            <div class="content">
+                <h3 th:text="${item.title}"></h3>
+                <p class="description" id="desc-${item.id}" th:text="${item.description}">
+                    <span class="read-more" onclick="toggleDescription(${item.id})">Read More</span>
+                </p>
+                <a th:href="@{/explore/{id}(id=${item.id})}" class="btn">Explore</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Static Quiz Section -->
+<section class="quiz-section">
+    <h2>Test Your Knowledge on Indian Festivals</h2>
+
+    <!-- Question 1 -->
+    <div class="quiz-question" id="q1">
+        <p>Which festival is celebrated to mark the victory of good over evil, symbolized by the victory of Lord Rama over Ravana?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Eid</div>
+            <div class="quiz-option" onclick="checkAnswer(1, 'correct')">Diwali</div>
+            <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Christmas</div>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="quiz-question" id="q2">
+        <p>Which festival is associated with the harvest season in Punjab?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Onam</div>
+            <div class="quiz-option" onclick="checkAnswer(2, 'correct')">Baisakhi</div>
+            <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Holi</div>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="quiz-question" id="q3">
+        <p>Which festival is known as the festival of colors?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(3, 'correct')">Holi</div>
+            <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Diwali</div>
+            <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Eid</div>
+        </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="quiz-question" id="q4">
+        <p>Which festival marks the birth of Lord Krishna?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(4, 'correct')">Janmashtami</div>
+            <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Navratri</div>
+            <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Dussehra</div>
+        </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="quiz-question" id="q5">
+        <p>Which festival is celebrated to honor the harvest of rice in South India?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Gudi Padwa</div>
+            <div class="quiz-option" onclick="checkAnswer(5, 'correct')">Pongal</div>
+            <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Diwali</div>
+        </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="quiz-question" id="q6">
+        <p>Which festival marks the beginning of the lunar New Year in India?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Makar Sankranti</div>
+            <div class="quiz-option" onclick="checkAnswer(6, 'correct')">Gudi Padwa</div>
+            <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Eid</div>
+        </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="quiz-question" id="q7">
+        <p>Which festival celebrates the goddess Durga?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Holi</div>
+            <div class="quiz-option" onclick="checkAnswer(7, 'correct')">Navratri</div>
+            <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Diwali</div>
+        </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="quiz-question" id="q8">
+        <p>Which festival is celebrated with grand feasts and lights to mark the end of Ramadan?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Diwali</div>
+            <div class="quiz-option" onclick="checkAnswer(8, 'correct')">Eid</div>
+            <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Pongal</div>
+        </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="quiz-question" id="q9">
+        <p>Which festival involves the worship of cows in India?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Makar Sankranti</div>
+            <div class="quiz-option" onclick="checkAnswer(9, 'correct')">Gopuja</div>
+            <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Diwali</div>
+        </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="quiz-question" id="q10">
+        <p>Which festival is celebrated with fasting and prayers for marital bliss?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Onam</div>
+            <div class="quiz-option" onclick="checkAnswer(10, 'correct')">Karva Chauth</div>
+            <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Diwali</div>
+        </div>
+    </div>
+
+    <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+<script>
+    const correctAnswers = {
+        1: 'correct',
+        2: 'correct',
+        3: 'correct',
+        4: 'correct',
+        5: 'correct',
+        6: 'correct',
+        7: 'correct',
+        8: 'correct',
+        9: 'correct',
+        10: 'correct'
+    };
+
+    let userAnswers = {
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
+        7: null,
+        8: null,
+        9: null,
+        10: null
+    };
+
+    function checkAnswer(questionNumber, answer) {
+        userAnswers[questionNumber] = answer;
+        const resultText = document.getElementById("quiz-result");
+
+        if (answer === correctAnswers[questionNumber]) {
+            resultText.innerHTML = "Correct answer!";
+            resultText.style.color = 'green';
+        } else {
+            resultText.innerHTML = "Incorrect answer. Try again!";
+            resultText.style.color = 'red';
+        }
+    }
+</script>
+
+</body>
+</html>

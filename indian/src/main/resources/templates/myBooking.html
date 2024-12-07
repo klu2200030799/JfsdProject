@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* No bookings message */
+        p {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-top: 40px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- Include navbar -->
+    <div th:insert="fragments/navbar :: navbar"></div>
+</header>
+
+<main>
+    <h1>My Bookings</h1>
+    <div th:if="${bookings.isEmpty()}">
+        <p>No bookings found.</p>
+    </div>
+    <table th:if="${!bookings.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Number of Persons</th>
+            <th>Phone Number</th>
+            <th>Arrival Date</th>
+            <th>Departure Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.id}"></td>
+            <td th:text="${booking.location}"></td>
+            <td th:text="${booking.numberOfPersons}"></td>
+            <td th:text="${booking.phoneNumber}"></td>
+            <td th:text="${booking.arrivalDate}"></td>
+            <td th:text="${booking.departureDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

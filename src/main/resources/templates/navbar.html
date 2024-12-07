@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <div id="menu-bar" class="fas fa-bars"></div>
+    <a class="navbar-brand" href="/">
+        <div class="logo-image">
+            <img src="/images/travelIndia.png" class="img-fluid"
+                 style="object-fit: contain; width: 200px; height: 30px" alt="TravelIndia Logo">
+        </div>
+    </a>
+    <div class="nav">
+        <nav class="navbar" style="font-size: 8px;">
+            <!-- General links -->
+            <a href="/">Home</a>
+            <a th:href="@{'/{category}'(category='arts')}">Arts</a>
+            <a th:href="@{'/{category}'(category='dance')}">Dance</a>
+            <a th:href="@{'/{category}'(category='music')}">Music</a>
+            <a th:href="@{'/{category}'(category='festivals')}">Festivals</a>
+            <a th:href="@{'/{category}'(category='ancient-traditions')}">Ancient Traditions</a>
+            <a th:href="@{'/{category}'(category='locations')}">Locations</a>
+            <a th:href="@{'/{category}'(category='find')}">Top Indian Heritage Places</a>
+            <a th:href="@{/about}">About</a>
+
+            <!-- Admin-only links -->
+            <div th:if="${session.role == 'admin'}">
+                <a th:href="@{/api/admin/getBookings}">See Bookings</a>
+                <a th:href="@{/api/admin/createPost}">Create Post</a>
+            </div>
+
+            <!-- Logged-in user links -->
+            <div th:if="${session.username != null}">
+                <div th:if="${session.role == 'user'}">
+                    <a th:href="@{/book}">Book Now</a>
+                    <a th:href="@{'/myBooking/' + ${session.userId}}">My Bookings</a>
+                </div>
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+
+            <!-- Guest user links -->
+            <div th:if="${session.username == null}">
+                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/register}">Register</a>
+            </div>
+        </nav>
+    </div>
+    <div class="icons">
+        <i class="fas fa-user" id="login-btn"></i>
+    </div>
+</header>
+</body>
+</html>

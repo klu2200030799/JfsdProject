@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ancient Traditions</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    header {
+      background-color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .heading {
+      font-size: 3rem;
+      color: #ff6347; /* bright color for visibility */
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* adds shadow for better readability */
+    }
+
+    .heading span {
+      color: #ff6347; /* vibrant color for emphasis */
+    }
+
+    .packages {
+      padding: 40px 0;
+      text-align: center;
+      background-color: black;
+    }
+
+    .box-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .box {
+      background-color: #333;
+      color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      min-height: 400px;
+      position: relative;
+    }
+
+    .box img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      filter: brightness(50%); /* apply dim effect to images */
+    }
+
+    .box .content {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    .box:hover .content {
+      background-color: rgba(0, 0, 0, 0.8); /* more dark on hover for effect */
+    }
+
+    .content h3 {
+      font-size: 2rem;
+      color: #ff6347;
+      margin-bottom: 10px;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: #ff6347;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e5533c; /* darker shade on hover */
+    }
+
+    .box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      margin-top: 50px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-option {
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .quiz-option:hover {
+      background-color: #ff6347;
+    }
+
+    .quiz-result {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #ff5722;
+    }
+  </style>
+</head>
+<body>
+
+<div th:include="navbar"></div>
+
+<section class="packages" id="packages">
+  <h1 class="heading"><span>Ancient Traditions</span></h1>
+  <div class="box-container">
+    <div class="box" th:each="item : ${galleryItems}">
+      <img th:src="@{${item.image}}" alt="${item.title}">
+      <div class="content">
+        <h3 th:text="${item.title}"></h3>
+        <p class="description" th:text="${item.description}"></p>
+        <a th:href="@{/explore/{id}(id=${item.id})}" class="btn">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Static Quiz Section -->
+<section class="quiz-section">
+  <h2>Test Your Knowledge on Indian Ancient Traditions</h2>
+
+  <!-- Question 1 -->
+  <div class="quiz-question" id="q1">
+    <p>Which ancient Indian tradition involves the lighting of lamps to symbolize the victory of light over darkness?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Eid</div>
+      <div class="quiz-option" onclick="checkAnswer(1, 'correct')">Diwali</div>
+      <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Christmas</div>
+    </div>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="quiz-question" id="q2">
+    <p>Which ancient festival marks the victory of good over evil in India?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Navratri</div>
+      <div class="quiz-option" onclick="checkAnswer(2, 'correct')">Dussehra</div>
+      <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Onam</div>
+    </div>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="quiz-question" id="q3">
+    <p>Which festival is celebrated to honor the harvest in Punjab?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Makar Sankranti</div>
+      <div class="quiz-option" onclick="checkAnswer(3, 'correct')">Baisakhi</div>
+      <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Holi</div>
+    </div>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="quiz-question" id="q4">
+    <p>Which festival is celebrated with the tradition of fasting and prayers for marital bliss?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(4, 'correct')">Karva Chauth</div>
+      <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Diwali</div>
+      <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Holi</div>
+    </div>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="quiz-question" id="q5">
+    <p>Which ancient Indian tradition involves rituals to honor ancestors and the deceased?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Durga Puja</div>
+      <div class="quiz-option" onclick="checkAnswer(5, 'correct')">Pitru Paksha</div>
+      <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Navratri</div>
+    </div>
+  </div>
+
+  <!-- Question 6 -->
+  <div class="quiz-question" id="q6">
+    <p>Which festival is known for the worship of the Goddess Durga?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(6, 'correct')">Navratri</div>
+      <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Diwali</div>
+      <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Holi</div>
+    </div>
+  </div>
+
+  <!-- Question 7 -->
+  <div class="quiz-question" id="q7">
+    <p>Which tradition involves the worship of cows and is celebrated during Makar Sankranti in India?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(7, 'correct')">Gopuja</div>
+      <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Diwali</div>
+      <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Onam</div>
+    </div>
+  </div>
+
+  <!-- Question 8 -->
+  <div class="quiz-question" id="q8">
+    <p>Which ancient tradition involves the worship of fire?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(8, 'correct')">Agni Puja</div>
+      <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Ganesha Puja</div>
+      <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Holi</div>
+    </div>
+  </div>
+
+  <!-- Question 9 -->
+  <div class="quiz-question" id="q9">
+    <p>Which festival celebrates the arrival of the spring season?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Diwali</div>
+      <div class="quiz-option" onclick="checkAnswer(9, 'correct')">Vasant Panchami</div>
+      <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Gudi Padwa</div>
+    </div>
+  </div>
+
+  <!-- Question 10 -->
+  <div class="quiz-question" id="q10">
+    <p>Which ancient tradition involves creating colorful patterns on the ground using colored powders?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Makar Sankranti</div>
+      <div class="quiz-option" onclick="checkAnswer(10, 'correct')">Rangoli</div>
+      <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Diwali</div>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+<script>
+  const correctAnswers = {
+    1: 'correct',
+    2: 'correct',
+    3: 'correct',
+    4: 'correct',
+    5: 'correct',
+    6: 'correct',
+    7: 'correct',
+    8: 'correct',
+    9: 'correct',
+    10: 'correct'
+  };
+
+  let userAnswers = {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
+    10: null
+  };
+
+  function checkAnswer(questionNumber, answer) {
+    userAnswers[questionNumber] = answer;
+    const resultText = document.getElementById("quiz-result");
+
+    if (answer === correctAnswers[questionNumber]) {
+      resultText.innerHTML = "Correct answer!";
+      resultText.style.color = 'green';
+    } else {
+      resultText.innerHTML = "Incorrect answer. Try again!";
+      resultText.style.color = 'red';
+    }
+  }
+</script>
+
+</body>
+</html>

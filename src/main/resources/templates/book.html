@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Now</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: black; /* Set background color to black */
+            color: white; /* Text color white for contrast */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .book {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .heading {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .heading span {
+            color: #FFD700; /* Golden color for the heading */
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .image img {
+            max-width: 50%; /* Decreased image size */
+            height: auto;
+        }
+
+        form {
+            background-color: #333; /* Dark background for the form */
+            padding: 15px; /* Reduced padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 220px; /* Reduced form width */
+            margin: 0 auto; /* Center the form */
+        }
+
+        .inputBox {
+            margin-bottom: 10px; /* Reduced margin between input boxes */
+            text-align: left;
+        }
+
+        .inputBox h3 {
+            margin-bottom: 3px; /* Reduced margin under labels */
+            font-size: 14px; /* Reduced font size */
+            color: white;
+        }
+
+        .inputBox input {
+            width: 100%;
+            padding: 6px; /* Reduced padding inside inputs */
+            background-color: #444;
+            border: none;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .inputBox input[type="submit"] {
+            background-color: #FFD700;
+            cursor: pointer;
+            border: none;
+            padding: 8px; /* Reduced button padding */
+        }
+
+        .inputBox input[type="submit"]:hover {
+            background-color: #FFA500;
+        }
+
+        .inputBox input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<section class="book" id="book">
+    <h1 class="heading"><span>BOOKNOW</span></h1>
+    <br />
+    <div class="row">
+        <div class="image">
+            <img src="/images/book-img.png" alt="Booking Image">
+        </div>
+        <form action="/booking/submit" method="POST">
+            <div class="inputBox">
+                <h3><i class="fas fa-map-marker-alt"></i> Location </h3>
+                <input type="text" name="location" placeholder="Destination Name" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-user-friends"></i> No of Persons </h3>
+                <input type="number" name="numberOfPersons" placeholder="Number of Guests" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-phone-alt"></i> Phone No </h3>
+                <input type="text" name="phoneNumber" placeholder="Contact Number" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-plane-arrival"></i> Arrival Date </h3>
+                <input type="date" name="arrivalDate" required>
+            </div>
+            <div class="inputBox">
+                <h3><i class="fas fa-plane-departure"></i> Departure Date </h3>
+                <input type="date" name="departureDate" required>
+            </div>
+            <input type="submit" class="btn" value="Book Now">
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

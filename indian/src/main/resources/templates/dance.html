@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        .packages {
+            padding: 40px 0;
+            text-align: center;
+            background-color: black;
+        }
+
+        .heading {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .heading span {
+            color: #6a89cc;
+        }
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .box {
+            background-color: #333;
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px; /* Ensure all boxes are of equal size */
+        }
+
+        .box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+            flex-grow: 1; /* Allow content to take up remaining space */
+        }
+
+        .content h3 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            max-height: 60px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .read-more {
+            color: #6a89cc;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #6a89cc;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #4a69bd;
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 50px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-option {
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quiz-option:hover {
+            background-color: #6a89cc;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+<div th:include="navbar"></div>
+
+<section class="packages" id="packages">
+    <h1 class="heading"><span>Bharath'S Natyakala</span></h1>
+    <div class="box-container">
+        <div class="box" th:each="item : ${galleryItems}">
+            <img th:src="@{${item.image}}" alt="${item.title}">
+            <div class="content">
+                <h3 th:text="${item.title}"></h3>
+                <p class="description" th:text="${item.description}">
+                    <span class="read-more" onclick="toggleDescription(this)">Read More</span>
+                </p>
+                <a th:href="@{/explore/{id}(id=${item.id})}" class="btn">Explore</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Static Quiz Section -->
+<section class="quiz-section">
+    <h2>Test Your Knowledge on Indian Dance Forms</h2>
+
+    <!-- Question 1 -->
+    <div class="quiz-question" id="q1">
+        <p>What is Bharatanatyam known for?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Kathak</div>
+            <div class="quiz-option" onclick="checkAnswer(1, 'correct')">Classical dance of Tamil Nadu</div>
+            <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Folk dance of Maharashtra</div>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="quiz-question" id="q2">
+        <p>Which state is famous for Kathak dance?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Gujarat</div>
+            <div class="quiz-option" onclick="checkAnswer(2, 'correct')">Uttar Pradesh</div>
+            <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Kerala</div>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="quiz-question" id="q3">
+        <p>Which dance form is primarily associated with Kerala?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Bharatanatyam</div>
+            <div class="quiz-option" onclick="checkAnswer(3, 'correct')">Kathakali</div>
+            <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Kuchipudi</div>
+        </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="quiz-question" id="q4">
+        <p>What is the theme of Odissi dance?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(4, 'correct')">Devotional themes</div>
+            <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Folk songs</div>
+            <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Classical theatre</div>
+        </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="quiz-question" id="q5">
+        <p>Which of these dance forms is from Andhra Pradesh?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Kathakali</div>
+            <div class="quiz-option" onclick="checkAnswer(5, 'correct')">Kuchipudi</div>
+            <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Manipuri</div>
+        </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="quiz-question" id="q6">
+        <p>Which dance form involves storytelling through mudras?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(6, 'correct')">Bharatanatyam</div>
+            <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Kuchipudi</div>
+            <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Odissi</div>
+        </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="quiz-question" id="q7">
+        <p>Which is the traditional dance of Assam?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Bharatanatyam</div>
+            <div class="quiz-option" onclick="checkAnswer(7, 'correct')">Sattriya</div>
+            <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Kathakali</div>
+        </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="quiz-question" id="q8">
+        <p>Which dance form is known for its energetic footwork and fast movements?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Bharatanatyam</div>
+            <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Kathak</div>
+            <div class="quiz-option" onclick="checkAnswer(8, 'correct')">Kathakali</div>
+        </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="quiz-question" id="q9">
+        <p>Which dance form is associated with the region of Rajasthan?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Odissi</div>
+            <div class="quiz-option" onclick="checkAnswer(9, 'correct')">Ghoomar</div>
+            <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Kuchipudi</div>
+        </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="quiz-question" id="q10">
+        <p>Which dance form originated in Tamil Nadu?</p>
+        <div class="quiz-options">
+            <div class="quiz-option" onclick="checkAnswer(10, 'correct')">Bharatanatyam</div>
+            <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Kathak</div>
+            <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Kuchipudi</div>
+        </div>
+    </div>
+
+    <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+<script>
+    // Correct answers for the quiz
+    const correctAnswers = {
+        1: 'correct',
+        2: 'correct',
+        3: 'correct',
+        4: 'correct',
+        5: 'correct',
+        6: 'correct',
+        7: 'correct',
+        8: 'correct',
+        9: 'correct',
+        10: 'correct'
+    };
+
+    let userAnswers = {
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
+        7: null,
+        8: null,
+        9: null,
+        10: null
+    };
+
+    function checkAnswer(questionNumber, answer) {
+        userAnswers[questionNumber] = answer;
+        const resultText = document.getElementById("quiz-result");
+
+        if (answer === correctAnswers[questionNumber]) {
+            resultText.innerHTML = "Correct answer!";
+            resultText.style.color = 'green';
+        } else {
+            resultText.innerHTML = "Incorrect answer. Try again!";
+            resultText.style.color = 'red';
+        }
+    }
+</script>
+
+</body>
+</html>

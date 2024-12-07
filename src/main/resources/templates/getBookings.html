@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+<div th:include="navbar"></div>
+<h1>Booking Details</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Phone Number</th>
+        <th>Arrival Date</th>
+        <th>Departure Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over bookings -->
+    <tr th:each="booking : ${bookings}">
+        <td th:text="${booking.id}"></td>
+        <td th:text="${booking.getLocation()}"></td>
+        <td th:text="${booking.getNumberOfPersons()}"></td>
+        <td th:text="${booking.getPhoneNumber()}"></td>
+        <td th:text="${booking.getArrivalDate()}"></td>
+        <td th:text="${booking.getDepartureDate()}"></td>
+        <td>
+            <button>Edit</button>
+            <button>Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button onclick="addBooking()">Add New Booking</button>
+
+<script>
+    function addBooking() {
+        alert('Redirect to add booking form!');
+        // Add redirect or form logic here
+    }
+</script>
+</body>
+</html>

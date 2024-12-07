@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Men in India</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #4a2fbd;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Intro section */
+        .intro-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .intro-section img {
+            width: 50%;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .intro-section img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .intro-section .content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro-section .content h2 {
+            font-size: 32px;
+            color: #d2601a;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .intro-section .content p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Grid section */
+        .grid-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .grid-item {
+            flex: 1 1 calc(25% - 20px);
+            max-width: 280px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .grid-item:hover img {
+            opacity: 0.8;
+        }
+
+        .grid-item .text-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .grid-item:hover .text-overlay {
+            transform: translateY(0);
+        }
+
+        .grid-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .grid-item p {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                flex-direction: column;
+            }
+
+            .intro-section img {
+                width: 100%;
+            }
+
+            .grid-item {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-item {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <h1>Holy Men in India</h1>
+
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <img src="https://st3.depositphotos.com/4075971/15368/i/450/depositphotos_153682488-stock-photo-holy-varanasi-man.jpg" alt="Holy Man">
+        <div class="content">
+            <h2>About Holy Men</h2>
+            <p>India's holy men are iconic spiritual figures who renounce worldly life and immerse themselves in the pursuit of divine wisdom. They are revered across the nation for their guidance, meditation, and dedication to spirituality. Their journey is one of self-discovery and enlightenment, making them a symbol of India's profound spiritual heritage.</p>
+        </div>
+    </div>
+
+    <!-- Grid Section -->
+    <div class="grid-section">
+        <div class="grid-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnr7OQZDQhZ8BXCzFnPImQl3cR_Ks-UIOyJQ&s" alt="Holy Men Image 1">
+            <div class="text-overlay">
+                <h3>Varanasi Saints</h3>
+                <p>The spiritual center of India, where holy men connect with the divine along the sacred Ganges River.</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD2QBhZ4pf1lL3q6DIXbhNTPjiRuO5tn3B9g&s" alt="Holy Men Image 2">
+            <div class="text-overlay">
+                <h3>Sadhu Gatherings</h3>
+                <p>Witness the grandeur of ascetics assembling for major religious festivals across India.</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="https://st3.depositphotos.com/4075971/15368/i/450/depositphotos_153682488-stock-photo-holy-varanasi-man.jpg" alt="Holy Men Image 3">
+            <div class="text-overlay">
+                <h3>Rishikesh Monks</h3>
+                <p>The yoga capital, where spiritual seekers learn and meditate in harmony with nature.</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD2QBhZ4pf1lL3q6DIXbhNTPjiRuO5tn3B9g&s" alt="Holy Men Image 4">
+            <div class="text-overlay">
+                <h3>Himalayan Hermits</h3>
+                <p>Explore the solitude of hermits meditating in the serenity of the mighty Himalayas.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

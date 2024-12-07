@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      padding: 20px;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 4rem;
+      margin: 100px 0 30px;
+      color: #feb47b;
+      text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.5);
+    }
+
+    .box-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .box {
+      background-color: #1e1e1e;
+      color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .box img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .box:hover img {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .content h3 {
+      font-size: 1.8rem;
+      margin: 10px 0;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .btn {
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ff7e5f;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #feb47b;
+      transform: translateY(-3px);
+    }
+
+    .read-more {
+      color: #feb47b;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      margin-top: 50px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-option {
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .quiz-option:hover {
+      background-color: #feb47b;
+    }
+
+    .quiz-result {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #ff5722;
+    }
+  </style>
+</head>
+<body>
+<header th:include="navbar">
+  <!-- Navbar will be included dynamically -->
+</header>
+
+<section class="packages" id="packages">
+  <h1 class="heading"><span>Where Music Speaks</span></h1>
+  <div class="box-container">
+    <div class="box" th:each="item : ${galleryItems}">
+      <img th:src="@{${item.image}}" alt="${item.title}">
+      <div class="content">
+        <h3 th:text="${item.title}"></h3>
+        <p class="description">
+          <span th:text="${item.description.substring(0, 60)}" class="short-text"></span>
+          <span th:text="${item.description}" class="full-text" style="display:none;"></span>
+          <span class="read-more" onclick="toggleReadMore(this)">Read More</span>
+        </p>
+        <a th:href="@{/explore/{id}(id=${item.id})}" class="btn">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Static Quiz Section -->
+<section class="quiz-section">
+  <h2>Test Your Knowledge on Indian Music Forms</h2>
+
+  <!-- Question 1 -->
+  <div class="quiz-question" id="q1">
+    <p>Which of these is a classical Indian music form?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Jazz</div>
+      <div class="quiz-option" onclick="checkAnswer(1, 'correct')">Carnatic</div>
+      <div class="quiz-option" onclick="checkAnswer(1, 'incorrect')">Rock</div>
+    </div>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="quiz-question" id="q2">
+    <p>Which Indian music form is known for its Ragas?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(2, 'correct')">Hindustani</div>
+      <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Pop</div>
+      <div class="quiz-option" onclick="checkAnswer(2, 'incorrect')">Hip-hop</div>
+    </div>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="quiz-question" id="q3">
+    <p>Which state is famous for the music form known as Baul?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Punjab</div>
+      <div class="quiz-option" onclick="checkAnswer(3, 'incorrect')">Kerala</div>
+      <div class="quiz-option" onclick="checkAnswer(3, 'correct')">West Bengal</div>
+    </div>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="quiz-question" id="q4">
+    <p>Which classical music form is associated with North India?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(4, 'correct')">Hindustani</div>
+      <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Carnatic</div>
+      <div class="quiz-option" onclick="checkAnswer(4, 'incorrect')">Folk</div>
+    </div>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="quiz-question" id="q5">
+    <p>Which music form is famous in the state of Kerala?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Ghazal</div>
+      <div class="quiz-option" onclick="checkAnswer(5, 'incorrect')">Folk</div>
+      <div class="quiz-option" onclick="checkAnswer(5, 'correct')">Carnatic</div>
+    </div>
+  </div>
+
+  <!-- Question 6 -->
+  <div class="quiz-question" id="q6">
+    <p>Which music style is associated with the Dhrupad genre?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(6, 'correct')">Hindustani</div>
+      <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Ghazal</div>
+      <div class="quiz-option" onclick="checkAnswer(6, 'incorrect')">Rap</div>
+    </div>
+  </div>
+
+  <!-- Question 7 -->
+  <div class="quiz-question" id="q7">
+    <p>Which Indian music form is popular for its percussion instruments?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Western Classical</div>
+      <div class="quiz-option" onclick="checkAnswer(7, 'correct')">Carnatic</div>
+      <div class="quiz-option" onclick="checkAnswer(7, 'incorrect')">Pop</div>
+    </div>
+  </div>
+
+  <!-- Question 8 -->
+  <div class="quiz-question" id="q8">
+    <p>Which form is known for its rhythm-heavy performances?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Jazz</div>
+      <div class="quiz-option" onclick="checkAnswer(8, 'incorrect')">Pop</div>
+      <div class="quiz-option" onclick="checkAnswer(8, 'correct')">Kuchipudi</div>
+    </div>
+  </div>
+
+  <!-- Question 9 -->
+  <div class="quiz-question" id="q9">
+    <p>Which classical music form is associated with South India?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(9, 'correct')">Carnatic</div>
+      <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Hindustani</div>
+      <div class="quiz-option" onclick="checkAnswer(9, 'incorrect')">Kuchipudi</div>
+    </div>
+  </div>
+
+  <!-- Question 10 -->
+  <div class="quiz-question" id="q10">
+    <p>Which Indian music style is associated with devotional singing?</p>
+    <div class="quiz-options">
+      <div class="quiz-option" onclick="checkAnswer(10, 'correct')">Bhajan</div>
+      <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Ghazal</div>
+      <div class="quiz-option" onclick="checkAnswer(10, 'incorrect')">Folk</div>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quiz-result"></div>
+</section>
+
+<script>
+  const correctAnswers = {
+    1: 'correct',
+    2: 'correct',
+    3: 'correct',
+    4: 'correct',
+    5: 'correct',
+    6: 'correct',
+    7: 'correct',
+    8: 'correct',
+    9: 'correct',
+    10: 'correct'
+  };
+
+  let userAnswers = {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
+    10: null
+  };
+
+  function checkAnswer(questionNumber, answer) {
+    userAnswers[questionNumber] = answer;
+    const resultText = document.getElementById("quiz-result");
+
+    if (answer === correctAnswers[questionNumber]) {
+      resultText.innerHTML = "Correct answer!";
+      resultText.style.color = 'green';
+    } else {
+      resultText.innerHTML = "Incorrect answer. Try again!";
+      resultText.style.color = 'red';
+    }
+  }
+</script>
+
+</body>
+</html>

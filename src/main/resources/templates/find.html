@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Explore India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Page Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: center; /* Centering menu items */
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-left {
+            display: none; /* Hide the logo for a fully centered navbar */
+        }
+
+        .navbar-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navbar-center ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 15px;
+        }
+
+        .navbar-center ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-center ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-center ul li a:hover {
+            color: #FFD700; /* Golden hover effect */
+        }
+
+        .navbar-center ul li a i {
+            font-size: 1.2rem;
+        }
+
+        /* Map Container Styles */
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 80px; /* Space below the navbar */
+        }
+
+        .heading {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FFD700; /* Golden color */
+        }
+
+        .heading i {
+            font-size: 28px;
+        }
+
+        iframe {
+            border: 2px solid #FFD700;
+            width: 90%;
+            height: 90%;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="navbar-center">
+        <ul>
+            <li><a href="index">Home</a></li>
+            <li><a href="arts">Arts</a></li>
+            <li><a href="dance">Dance</a></li>
+            <li><a href="music">Music</a></li>
+            <li><a href="festivals">Festivals</a></li>
+            <li><a href="ancient-traditions">Ancient Traditions</a></li>
+            <li><a href="locations">Locations</a></li>
+            <li><a href="heritage">Top Indian Heritage Places</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="login">Login</a></li>
+            <li><a href="register">Register</a></li>
+            <li><a href="user-icon"><i class="fas fa-user"></i></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="map-container">
+    <div class="heading">
+        <i class="fas fa-map-marker-alt"></i>
+        Top Heritage Places India
+    </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d14955300.639132429!2d67.2479985!3d23.776018!3m2!1i1024!2i768!4f13.1!2m1!1stop%20indian%20heritage%20places!5e0!3m2!1sen!2sin!4v1733588363569!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+</body>
+</html>

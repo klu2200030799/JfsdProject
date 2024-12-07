@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelIndia</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link for fonr awesome 5  used  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- custom icon for Travel Website-->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Aeroplane.png">
+
+
+    <style>
+        /* Style for the truncated description */
+        .description {
+            max-height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: max-height 0.3s ease;
+        }
+
+        /* Expanded description style */
+        .description.expanded {
+            max-height: none;
+        }
+
+        /* Button style */
+        .read-more-btn {
+            background-color: transparent;
+            border: none;
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div th:include="navbar"></div>
+
+
+
+    <section class="home" id="home">
+
+        <div class="content">
+            <h3>ExploreIndia Welcomes You!</h3>
+            <p>Discover India's Culture,Tradition,Heritage.</p>
+            <p>India is yours to Explore.</p>
+            <a href="https://indianculture.gov.in/" class="btnmain">Know more>>></a>
+        </div>
+
+        <div class="controls">
+            <span class="img-btn active" data-src="images/imagecon1.jpg"></span>
+            <span class="img-btn" data-src="images/imagecon2.jpg"></span>
+            <span class="img-btn" data-src="images/imagecon3.jpg"></span>
+            <span class="img-btn" data-src="images/imagecon4.jpg"></span>
+            <span class="img-btn" data-src="images/imagecon5.jpg"></span>
+        </div>
+
+        <div class="img-container">
+            <img src="images/imagecon1.jpg" id="img-slider">
+        </div>
+
+    </section>
+
+    <!-- home section ends -->
+    <br />
+    <!-- book section starts  -->
+
+
+
+    <!-- book section ends -->
+    <br />
+<!--    &lt;!&ndash; services section starts  &ndash;&gt;-->
+
+<!--    <section class="services" id="services">-->
+
+<!--        <h1 class="heading">-->
+<!--            <span>SERVICES</span>-->
+<!--        </h1>-->
+<!--        <br />-->
+<!--        <div class="box-container">-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-wifi"></i>-->
+<!--                <h3>Wifi</h3>-->
+<!--                <p>Wifi Available while Travelling. it can be Differenciated on Means of Transport you are Travelling.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-hotel"></i>-->
+<!--                <h3>Affordable hotels</h3>-->
+<!--                <p>Hotels are Posh and with all Facilities. If you want to stay in Nature Camp then you have to Specify-->
+<!--                    while Booking.</p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-utensils"></i>-->
+<!--                <h3>Food and Beverages</h3>-->
+<!--                <p>Food and Beverages are available on your seat itself just one click away.</p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-bullhorn"></i>-->
+<!--                <h3>Safety guide</h3>-->
+<!--                <p>Covid Precautions are taken very seriously. We check Temperature every 8Hrs and taking care of your-->
+<!--                    safety is our main Priority.</p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fab fa-btc"></i>-->
+<!--                <h3>Payment Method</h3>-->
+<!--                <p>From Normal Indian Curreny including (PhonePe/Paytm/UPI) to Crypto curreny every currency in-->
+<!--                    acceptable. </p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-train"></i>-->
+<!--                <h3>Fastest travel</h3>-->
+<!--                <p>You can travel by whatsoever means you want (Bus/Train/Aeroplane). You will be Charged Accordingly.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-hiking"></i>-->
+<!--                <h3>Adventures</h3>-->
+<!--                <p>We also have Adventure Camping Facility. Prefferd for People who want to spend their time in nature.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <i class="fas fa-smoking-ban"></i>-->
+<!--                <h3>Smoking Ban</h3>-->
+<!--                <p>Smoking is ban to keep our customers away from allergies and Bad Odur.</p>-->
+<!--            </div>-->
+
+
+
+<!--        </div>-->
+
+<!--    </section>-->
+
+<!--    &lt;!&ndash; services section ends &ndash;&gt;-->
+    <br />
+    <!-- packages section starts  -->
+    <section class="packages" id="packages">
+        <h1 class="heading"><span>HISTORICAL MONUMENTS </span></h1>
+        <br />
+        <div class="box-container">
+            <!-- Loop through gallery items -->
+            <div class="box" th:each="package : ${galleryItems}">
+                <img th:src="@{${package.image}}" alt="${package.title}">
+                <div class="content">
+                    <h3><i class="fas fa-map-marker-alt"></i> <span th:text="${package.title}"></span></h3>
+
+                    <!-- Description with Read More functionality -->
+                    <p class="description" th:text="${package.description}"></p>
+                    <button class="read-more-btn">Read More</button>
+
+                    <!-- Link to the explore page with the package ID -->
+                    <a th:href="@{/explore/{id}(id=${package.id})}" class="btn">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        // Get all the description elements and read more buttons
+        const descriptions = document.querySelectorAll('.description');
+        const readMoreButtons = document.querySelectorAll('.read-more-btn');
+
+        // Function to toggle between Read More and Read Less
+        function toggleDescription(index) {
+            const description = descriptions[index];
+            const button = readMoreButtons[index];
+
+            if (description.classList.contains('expanded')) {
+                description.classList.remove('expanded');
+                button.textContent = 'Read More';
+            } else {
+                description.classList.add('expanded');
+                button.textContent = 'Read Less';
+            }
+        }
+
+        // Add event listeners to all the Read More buttons
+        readMoreButtons.forEach((button, index) => {
+            button.addEventListener('click', () => toggleDescription(index));
+        });
+    </script>
+
+
+
+
+
+    <!-- packages section ends -->
+    <br />
+    <!-- gallery section starts  -->
+
+<!--    <section class="gallery" id="gallery">-->
+
+<!--        <h1 class="heading"><span>GALLERY</span></h1>-->
+<!--        <br />-->
+<!--        <div class="box-container">-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-1.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>The Holymen</h3>-->
+<!--                    <p>The Hindu holy men at Pashupati Nath temple.</p>-->
+<!--                    <a href="/holi.html" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-2.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>The Red Fort</h3>-->
+<!--                    <p>The Red Fort or Lal Qila served as the main residence of the Mughal Emperors.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-3.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Harmandir Sahib</h3>-->
+<!--                    <p>The Golden Temple is the preeminent spiritual site of Sikhism.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-4.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Gadisar lake</h3>-->
+<!--                    <p>Lake at Jaisalmer Rajasthan at sunrise with ancient temples and archaeological ruins.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-5.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Lotus Temple</h3>-->
+<!--                    <p>It is located in Delhi, India, is a Baháʼí House of Worship & Notable for its flowerlike shape.-->
+<!--                    </p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-6.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Agra Fort</h3>-->
+<!--                    <p>Agra Fort is a historical fort It was the main residence of the emperors of the Mughal Dynasty-->
+<!--                        until 1638.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-7.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Taj Mahal</h3>-->
+<!--                    <p>It is an ivory-white marble mausoleum on the right bank of the river Yamuna in the-->
+<!--                        Indian city of Agra.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-8.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Shillong Camping</h3>-->
+<!--                    <p>Shillong is a hill station in northeast India and capital of the state of Meghalaya.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="box">-->
+<!--                <img src="images/g-9.jpg" alt="">-->
+<!--                <div class="content">-->
+<!--                    <h3>Akshardham Temple</h3>-->
+<!--                    <p>It is one of the largest temples in the Indian state of Gujarat.</p>-->
+<!--                    <a href="#" class="btn">See More</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+    <!-- gallery section ends -->
+    <br />
+    <!-- review section starts  -->
+
+<!--    <section class="review" id="review">-->
+
+<!--        <h1 class="heading">-->
+<!--            <span>REVIEW</span>-->
+<!--        </h1>-->
+<!--        <br />-->
+
+<!--        <div class="swiper-container review-slider">-->
+<!--            <div class="swiper-wrapper">-->
+
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="box">-->
+<!--                        <img src="images/pic1.jpg" alt="">-->
+<!--                        <h3>Pankaj Tripathi</h3>-->
+<!--                        <p> There was full safety and full covid precautions too. Vacation important nahi hai inke-->
+<!--                            safety se santusht hue ye impotant hai.-->
+<!--                        </p>-->
+<!--                        <div class="stars">-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star-half-alt"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="box">-->
+<!--                        <img src="images/pic2.jfif" alt="">-->
+<!--                        <h3>Guddu Pandit</h3>-->
+<!--                        <p>अ आ इ ई उ ऊ ए ऐ ओ औ अं अः ऋ ॠ क ख ग घ ङ च छ ज झ ञ ट ठ ड ढ ण त थ द ध न प फ ब भ म य र ल व श ष स-->
+<!--                            ह क्ष त्र ज्ञ. Good Travel Ok. </p>-->
+<!--                        <div class="stars">-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star-half-alt"></i>-->
+<!--                            <i class="far fa-star"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="box">-->
+<!--                        <img src="images/pic3.jpg" alt="">-->
+<!--                        <h3>Mia Talerico</h3>-->
+<!--                        <p>My mother doesn't speak english very well. she said me to convey this message that it was our-->
+<!--                            Best Trip ever in India.</p>-->
+<!--                        <div class="stars">-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="far fa-star"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="swiper-slide">-->
+<!--                    <div class="box">-->
+<!--                        <img src="images/pic4.jpg" alt="">-->
+<!--                        <h3>Baburao Ganpatrao Apte</h3>-->
+<!--                        <p>Mast Maja aya 5 star le re baba tu.baki Mera Chashma Reh Gaya Courier kardena re Baba. Jai-->
+<!--                            Maharashtra. </p>-->
+<!--                        <div class="stars">-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                            <i class="fas fa-star"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+    <!-- review section ends -->
+    <br />
+    <!-- contact section starts  -->
+    <section class="contact" id="contact">
+
+        <h1 class="heading">
+            <span>CONTACT</span>
+        </h1>
+        <br />
+        <div class="row">
+
+            <div class="map" style="width: 40%">
+                <iframe width="380" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.6644981421864!2d80.62035802329154!3d16.44185707935831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35f0a2a073957d%3A0xe79d66babc83e470!2sK%20L%20UNIVERSITY%2C%20Vaddeswaram%2C%20Andhra%20Pradesh%20522303!5e0!3m2!1sen!2sin!4v1733578794410!5m2!1sen!2sin">
+                    <a href="https://www.gps.ie/car-satnav-gps/">best sat navs</a>
+                </iframe>
+            </div>
+            <form action="">
+                <div class="inputBox">
+                    <input type="text" placeholder="Name">
+                    <input type="number" placeholder="Phone No">
+                </div>
+                <div class="inputBox">
+                    <input type="email" placeholder="Email">
+                    <input type="text" placeholder="Subject">
+                </div>
+                <textarea placeholder="Message" name="" id="" cols="30" rows="10"></textarea>
+                <input type="submit" class="btn" value="Send Message>>>">
+            </form>
+        </div>
+    </section>
+
+    <!-- contact section ends -->
+    <br />
+    <!-- footer section  -->
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>About Us</h3>
+                <p>We are dedicated to preserving, promoting, and celebrating the rich heritage and culture of India.
+                </p>
+            </div>
+            <div class="box">
+                <h3>Branch Locations</h3>
+                <a href="https://goo.gl/maps/u5vYStgRQU7G5Y9Q8">KL University</a>
+
+            </div>
+            <div class="box">
+                <h3>Quick links</h3>
+                <a href="#home">Home</a>
+                <a href="#book">Book</a>
+                <a href="#packages">Historical Monuments</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="box">
+                <h3>Contact us</h3>
+                <p><i class="fas fa-phone-alt"></i> 7993584987</i></p>
+                <p><i class="fas fa-envelope"></i> 2200031522@kluniversity.in</i></p>
+                <p><i class="fas fa-home"></i> KL University,Guntur</i></p>
+            </div>
+
+
+        </div>
+        <h1 class="credit"> Created by <span> Dokuparthy Kundan</span> | &copy; All rights reserved! by ExploreIndia </h1>
+    </section>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- javascript file  -->
+    <script src="script.js"></script>
+</body>
+
+</html>
