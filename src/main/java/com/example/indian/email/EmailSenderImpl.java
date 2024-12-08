@@ -80,7 +80,7 @@ public class EmailSenderImpl  implements  EmailSenderService{
     @Override
     public void sendEmail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("bhavagna8@gmail.com");
+        message.setFrom("dokuparthykundan@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(content);
